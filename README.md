@@ -10,33 +10,33 @@ We have a free access to the AWS tenant of our team, at least for the EC2 part. 
  - You must stop your instance if you do not use it
  - You must delete your instance if you do not plan to use it anymore
 
- I used to check these by myself before, but now that we're approaching 40 people it becomes uneffective. I found several long-running forgotten instances in weird regions (which we could forbid though), people do not name their instances, etc. Therefore, I decided to script these operations and publish the result on our Slack, to make people more accountable.
+I used to check these by myself before, but now that we're approaching 40 people it becomes uneffective. I found several long-running forgotten instances in weird regions (which we could forbid though), people do not name their instances, etc. Therefore, I decided to script these operations and publish the result on our Slack, to make people more accountable.
 
- I chose the name because it makes me think of the Bailiff, who comes and says "you owe us something, man" ahah.
+I chose the name because it makes me think of the Bailiff, who comes and says "you owe us something, man" ahah.
 
- ## Screenshots
- To come !
+## Screenshots
+![Screenshot of Slack](/../screenshots/assets/capture.png?raw=true)
 
- ## Tech
- All of this is scripted in Python 3, with the main libraries being `boto3`, `pytest`, `slackclient`, and the awesome `tabulate` which spared me few hours.
+## Tech
+All of this is scripted in Python 3, with the main libraries being `boto3`, `pytest`, `slackclient`, and the awesome `tabulate` which spared me few hours.
 
- ## Features
+## Features
 The script grabs all the instances in the specified regions, and then computes some information on these:
- - Name
- - Trigram or quadrigram if exists
- - Launch date
- - Last action date (if exists, otherwise it is the launch date)
- - Region (obviously)
+- Name
+- Trigram or quadrigram if exists
+- Launch date
+- Last action date (if exists, otherwise it is the launch date)
+- Region (obviously)
 
- Based on this information, it classifies the instances in different categories according to which rules they follow correctly.
+Based on this information, it classifies the instances in different categories according to which rules they follow correctly.
 
- Then it prints this in sweet nice tables in a Slack channel.
+Then it prints this in sweet nice tables in a Slack channel.
 
- Everything is configurable through environment vars (cloud native, mate!):
-  - Log path
-  - Credentials for AWS
-  - Credential for Slack
-  - Threshold for inactivity
+Everything is configurable through environment vars (cloud native, mate!):
+- Log path
+- Credentials for AWS
+- Credential for Slack
+- Threshold for inactivity
 
 ## Tests
 I tested what could be tested, so mainly the logic and not the printing stuff. All done with PyTest : `python -m pytest tests/` to run the tests, or `pytest` if you have the current dir in your python path.
