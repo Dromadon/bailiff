@@ -2,7 +2,7 @@ import bailiff.utils.instance as bu
 import datetime
 import mock
 
-class TestUtils:
+class TestUtilsInstance:
 
     def test_get_instance_name_from_tags_returns_name_if_exists(self):
         # Given
@@ -31,6 +31,14 @@ class TestUtils:
         assert trigram=='AGR'
         assert quadrigram=='PADE'
 
+    def test_get_instance_trigram_returns_uppercase_trigram(self):
+        # Given
+        name='agr-test'
+        # When
+        trigram = bu.get_instance_trigram(name)
+        # Then
+        assert trigram=='AGR'
+
     def test_get_instance_trigram_returns_none_if_no_trigram_exists(self):
         # Given
         name='workernode'
@@ -50,7 +58,7 @@ class TestUtils:
     def test_get_instance_last_action_date_from_state_transition_returns_a_correct_date(self):
         # Given
         state_message='User initiated (2016-06-23 23:39:15 GMT)'
-        expected_date=datetime.datetime(2016, 6, 23, 23, 39, 15, tzinfo=None)
+        expected_date=datetime.date(2016, 6, 23)
         # When
         state_date = bu.get_instance_last_action_date_from_state_transition(state_message)
         # Then
