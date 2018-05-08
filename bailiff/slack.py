@@ -1,8 +1,8 @@
 from slackclient import SlackClient
 import os
+import config
 
-slack_token = os.environ['SLACK_API_TOKEN']
-sc = SlackClient(slack_token)
+sc = SlackClient(config.SLACK_API_TOKEN)
 
 def post_to_slack(message):
-    sc.api_call("chat.postMessage", channel="test_garbage", link_names=True, text="Wesh @channel \n```"+message+"```")
+    sc.api_call("chat.postMessage", channel=config.SLACK_CHANNEL, link_names=True, text=config.SLACK_INTRO_MESSAGE+"@channel\n```"+message+"```")

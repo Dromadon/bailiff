@@ -1,5 +1,7 @@
 import bailiff.utils.instance as utils
 import datetime
+import logging
+import bailiff.config
 
 def extract_instance_information(instance):
     information = {}
@@ -14,12 +16,16 @@ def extract_instance_information(instance):
 
 def classify_instance(instance_information):
     if not instance_information['Name']:
+        logging.debug('Instance has been classified UNNAMED')
         return 'UNNAMED'
     
     if not instance_information['Trigram']:
+        logging.debug('Instance has been classified Untrigrammed')
         return 'UNTRIGRAMMED'
 
     if instance_information['Stopped'] and datetime.date.today() - instance_information['LastActionDate'] > datetime.timedelta(15):
+        logging.debug('Instance has been classified Sleepy')
         return 'SLEEPY'
 
+    logging.debug('Instance has been classified Legit')
     return None
