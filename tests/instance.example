@@ -1,0 +1,109 @@
+{
+    "AmiLaunchIndex": 0,
+    "ImageId": "ami-a8d2d7ce",
+    "InstanceId": "i-018ee3a3e5cbc0472",
+    "InstanceType": "t2.medium",
+    "KeyName": "superset",
+    "LaunchTime": "2017-04-19T13:47:05.000Z",
+    "Monitoring": {
+        "State": "disabled"
+    },
+    "Placement": {
+        "AvailabilityZone": "eu-west-1c",
+        "GroupName": "",
+        "Tenancy": "default"
+    },
+    "PrivateDnsName": "ip-172-31-17-14.eu-west-1.compute.internal",
+    "PrivateIpAddress": "172.31.17.14",
+    "ProductCodes": [],
+    "PublicDnsName": "ec2-34-240-49-223.eu-west-1.compute.amazonaws.com",
+    "PublicIpAddress": "34.240.49.223",
+    "State": {
+        "Code": 16,
+        "Name": "running"
+    },
+    "StateTransitionReason": "",
+    "SubnetId": "subnet-db943cad",
+    "VpcId": "vpc-4736e923",
+    "Architecture": "x86_64",
+    "BlockDeviceMappings": [
+        {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+                "AttachTime": "2017-04-19T13:47:06.000Z",
+                "DeleteOnTermination": true,
+                "Status": "attached",
+                "VolumeId": "vol-0c7334b45fd535ffc"
+            }
+        }
+    ],
+    "ClientToken": "UAQof1492609624733",
+    "EbsOptimized": false,
+    "EnaSupport": true,
+    "Hypervisor": "xen",
+    "NetworkInterfaces": [
+        {
+            "Association": {
+                "IpOwnerId": "969076149354",
+                "PublicDnsName": "ec2-34-240-49-223.eu-west-1.compute.amazonaws.com",
+                "PublicIp": "34.240.49.223"
+            },
+            "Attachment": {
+                "AttachTime": "2017-04-19T13:47:05.000Z",
+                "AttachmentId": "eni-attach-6de3c609",
+                "DeleteOnTermination": true,
+                "DeviceIndex": 0,
+                "Status": "attached"
+            },
+            "Description": "",
+            "Groups": [
+                {
+                    "GroupName": "access-from-octo",
+                    "GroupId": "sg-9437d7f2"
+                }
+            ],
+            "Ipv6Addresses": [],
+            "MacAddress": "06:02:5d:d7:58:21",
+            "NetworkInterfaceId": "eni-700c3430",
+            "OwnerId": "969076149354",
+            "PrivateDnsName": "ip-172-31-17-14.eu-west-1.compute.internal",
+            "PrivateIpAddress": "172.31.17.14",
+            "PrivateIpAddresses": [
+                {
+                    "Association": {
+                        "IpOwnerId": "969076149354",
+                        "PublicDnsName": "ec2-34-240-49-223.eu-west-1.compute.amazonaws.com",
+                        "PublicIp": "34.240.49.223"
+                    },
+                    "Primary": true,
+                    "PrivateDnsName": "ip-172-31-17-14.eu-west-1.compute.internal",
+                    "PrivateIpAddress": "172.31.17.14"
+                }
+            ],
+            "SourceDestCheck": true,
+            "Status": "in-use",
+            "SubnetId": "subnet-db943cad",
+            "VpcId": "vpc-4736e923"
+        }
+    ],
+    "RootDeviceName": "/dev/sda1",
+    "RootDeviceType": "ebs",
+    "SecurityGroups": [
+        {
+            "GroupName": "access-from-octo",
+            "GroupId": "sg-9437d7f2"
+        }
+    ],
+    "SourceDestCheck": true,
+    "StateReason": {
+        "Code": "",
+        "Message": ""
+    },
+    "Tags": [
+        {
+            "Key": "Bute cette VM",
+            "Value": "et je t'éclate"
+        }
+    ],
+    "VirtualizationType": "hvm"
+}

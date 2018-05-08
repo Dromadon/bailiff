@@ -1,4 +1,4 @@
-import bailiff.utils as bu
+import bailiff.utils.instance as bu
 import datetime
 import mock
 
@@ -39,6 +39,14 @@ class TestUtils:
         # Then
         assert trigram==None
 
+    def test_get_instance_trigram_returns_none_if_name_is_none(self):
+        # Given
+        name=None
+        # When
+        trigram = bu.get_instance_trigram(name)
+        # Then
+        assert trigram==None
+
     def test_get_instance_last_action_date_from_state_transition_returns_a_correct_date(self):
         # Given
         state_message='User initiated (2016-06-23 23:39:15 GMT)'
@@ -56,23 +64,6 @@ class TestUtils:
         # Then
         assert state_date==None
 
-    def test_get_instance_launch_date_returns_a_correct_date(self):
-        # Given
-        launch_time='2017-04-19T13:47:05.000Z'
-        expected_date=datetime.datetime(2017, 4, 19, 13, 47, 5, 0, tzinfo=None)
-        # When
-        launch_date = bu.get_instance_launch_date(launch_time)
-        # Then
-        assert launch_date==expected_date
-
-    def test_get_instance_launch_date_returns_none_if_unset(self):
-        # Given
-        launch_time=''
-        # When
-        launch_date = bu.get_instance_launch_date(launch_time)
-        # Then
-        assert launch_date==None
-
     def test_is_instance_stopped_returns_true(self):
         # Given
         instance = {'State': {'Code':80, 'Name': 'Stopped'}}
@@ -80,3 +71,11 @@ class TestUtils:
         is_stopped = bu.is_instance_stopped(instance)
         # Then
         assert is_stopped==True
+
+    def test_get_instance_id_returns_correct_id(self):
+        # Given
+        instance = {'InstanceId': 'i-018ee3a3e5cbc0472'}
+        # When
+        id = bu.get_instance_id(instance)
+        # Then
+        assert id=='i-018ee3a3e5cbc0472'
