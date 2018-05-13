@@ -26,7 +26,14 @@ categories_headers = {
     'unnamed': {'Id': 'Id', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'},
     'untrigramed': {'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'},
     'sleepy': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'},
-    'legit': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'}
+    'legit': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Stopped': 'Stopped', 'Region': 'Region'}
 }
 
 REGIONS=['eu-west-1','eu-west-2', 'eu-central-1']
+
+
+# Askbob part
+
+
+ASKBOB_ID = os.environ['ASKBOB_ID']
+ASKBOB_SECRET = os.environ['ASKBOB_SECRET']

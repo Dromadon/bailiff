@@ -20,6 +20,8 @@ pytest==3.5.1
 python-dateutil==2.7.2
 requests==2.18.4
 s3transfer==0.1.13
+singleton==0.1.0
+singleton-decorator==1.0.0
 six==1.11.0
 slackclient==1.2.1
 tabulate==0.8.2

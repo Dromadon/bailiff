@@ -28,15 +28,16 @@ The script grabs all the instances in the specified regions, and then computes s
 - Last action date (if exists, otherwise it is the launch date)
 - Region (obviously)
 
-Based on this information, it classifies the instances in different categories according to which rules they follow correctly.
-
-Then it prints this in sweet nice tables in a Slack channel.
+Based on this information, it classifies the instances in different categories according to which rules they follow correctly. Then it prints this in sweet nice tables in a Slack channel.
 
 Everything is configurable through environment vars (cloud native, mate!):
-- Log path
 - Credentials for AWS
 - Credential for Slack
 - Threshold for inactivity
+
+### Askbob
+Askbob is our internal people reference. It exposes an API that bailiff uses to gather the emails of people based on their trigram. Therefore, we will be able in a near future to link this with the slack users, and ping them with direct notification hopefully.
+This part of the code is not linked to the execution right now, but already well-covered with tests. We may get some more soon once I have made a choice for mocking/patching with pytest. Stay tuned.
 
 ## Tests
 I tested what could be tested, so mainly the logic and not the printing stuff. All done with PyTest : `python -m pytest tests/` to run the tests, or `pytest` if you have the current dir in your python path.
