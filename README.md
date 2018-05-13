@@ -38,6 +38,7 @@ Everything is configurable through environment vars (cloud native, mate!):
 ### Askbob
 Askbob is our internal people reference. It exposes an API that bailiff uses to gather the emails of people based on their trigram. Therefore, we will be able in a near future to link this with the slack users, and ping them with direct notification hopefully.
 This part of the code is not linked to the execution right now, but already well-covered with tests. We may get some more soon once I have made a choice for mocking/patching with pytest. Stay tuned.
+I will make this feature flippable, so you can easily use the project without it.
 
 ## Tests
 I tested what could be tested, so mainly the logic and not the printing stuff. All done with PyTest : `python -m pytest tests/` to run the tests, or `pytest` if you have the current dir in your python path.
