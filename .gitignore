@@ -102,3 +102,12 @@ ENV/
 
 # Secrets management
 secrets/*.sh
+
+# Swap files because you know, vim
+*.swp
+
+# VSCode
+.vscode/
+
+# Pytest cache
+.pytest_cache/
