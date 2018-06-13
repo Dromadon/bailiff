@@ -2,7 +2,7 @@ import boto3
 from operator import itemgetter
 import bailiff.instance as bi
 import bailiff.utils.instance as bu
-import bailiff.slack
+import bailiff.slack as sl
 import bailiff.utils.printing as bp
 import logging
 
@@ -61,4 +61,5 @@ logging.info('Displaying results')
 message = bp.get_display_message(instances_categories)
 print(message)
 
-bailiff.slack.post_to_slack(message)
+slackWrapper = sl.SlackWrapper(cf.SLACK_API_TOKEN, cf.SLACK_CHANNEL, cf.SLACK_INTRO_MESSAGE)
+slackWrapper.post_to_slack(message)

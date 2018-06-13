@@ -29,7 +29,7 @@ class AskbobWrapper():
                 return r.json()['data']
             except Exception as e:
                 logging.error(e)
-                logging.error("Resuming without askbob people from team")
+                logging.error(f"Resuming without askbob people from team {team_id}")
                 return None
         else: 
             return None
@@ -48,7 +48,6 @@ class AskbobWrapper():
                 if p['trigram'] == t:
                     people_emails[t].append(p['email'])
                     break
-
         return people_emails
 
     def get_emails_from_trigram(self, team_name="", trigrams=[]):
