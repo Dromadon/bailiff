@@ -1,17 +1,9 @@
-#KMS Part
 
-resource "aws_kms_key" "kms_key" {
-  description             = "Bailiff kms key"
-}
-
-resource "aws_kms_alias" "kms_key_alias" {
-  name          = "alias/bailiff"
-  target_key_id = "${aws_kms_key.kms_key.key_id}"
-}
+# KMS Part
 
 resource "aws_kms_grant" "kms_grant" {
   name              = "bailiff-grant"
-  key_id            = "${aws_kms_key.kms_key.key_id}"
+  key_id            = "${data.aws_kms_key.kms_key.id}"
   grantee_principal = "${aws_iam_role.iam_role.arn}"
   operations        = [ "Encrypt", "Decrypt", "DescribeKey", "CreateGrant" ]
 }
@@ -21,6 +13,7 @@ resource "aws_kms_grant" "kms_grant" {
 
 resource "aws_iam_role" "iam_role" {
   name = "bailiff-role"
+  force_detach_policies = true
 
   assume_role_policy = <<EOF
 {
@@ -39,17 +32,43 @@ resource "aws_iam_role" "iam_role" {
 EOF
 }
 
+resource "aws_iam_policy" "read_ec2_policy" {
+  name        = "bailiff_read_ec2"
+  path        = "/"
+  description = "Allows bailiff to read all ec2 objects"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "ec2:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "readec2-attach" {
+    role       = "${aws_iam_role.iam_role.name}"
+    policy_arn = "${aws_iam_policy.read_ec2_policy.arn}"
+}
+
 # Lambda Part
 
 resource "aws_lambda_function" "bailiff_lambda" {
-  filename         = "../package/package.zip"
+  filename         = "../../package/package.zip"
   function_name    = "bailiff"
   role             = "${aws_iam_role.iam_role.arn}"
   handler          = "main.main"
-  source_code_hash = "${base64sha256(file("../package/package.zip"))}"
+  source_code_hash = "${base64sha256(file("../../package/package.zip"))}"
   runtime          = "python3.6"
 
-  kms_key_arn      = "${aws_kms_key.kms_key.arn}"
+  kms_key_arn      = "${data.aws_kms_key.kms_key.arn}"
   environment {
     variables = {
       SLACK_API_TOKEN = "test_token"
