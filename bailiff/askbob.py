@@ -1,5 +1,5 @@
 import requests as rq
-import bailiff.config as cf
+import config as cf
 import logging
 
 class AskbobWrapper():

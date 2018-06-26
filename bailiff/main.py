@@ -1,12 +1,12 @@
 import boto3
 from operator import itemgetter
-import bailiff.instance as bi
-import bailiff.utils.instance as bu
-import bailiff.slack as sl
-import bailiff.utils.printing as bp
+import instance as bi
+import utils.instance as bu
+import slack as sl
+import utils.printing as bp
 import logging
 
-import bailiff.config as cf
+import config as cf
 
 def process_instances():
   unnamed_instances=[]
@@ -56,11 +56,11 @@ def process_instances():
     'instances': legit_instances,
     'headers': cf.categories_headers['legit']},
   ]
-  
+  return instances_categories
 
 def main():
   logging.info('Displaying results')
-  message = bp.get_display_message(instances_categories)
+  message = bp.get_display_message(process_instances())
   print(message)
   slackWrapper = sl.SlackWrapper(cf.SLACK_API_TOKEN, cf.SLACK_CHANNEL, cf.SLACK_INTRO_MESSAGE)
   slackWrapper.post_to_slack(message)
