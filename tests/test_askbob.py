@@ -19,7 +19,7 @@ class TestAskbob:
         monkeypatch.setattr('requests.get', mock_requests_exception)
         return aw
     
-    def test_get_email_from_people_data_returns_both_emails(self, askbob_wrapper):
+    def test_get_people_email_from_people_data_returns_both_emails(self, askbob_wrapper):
         # Given
         trigrams=['AGR','ALB']
         people_data = [
@@ -47,13 +47,13 @@ class TestAskbob:
         # Then
         assert id == None
 
-    """def test_get_team_id_returns_none_if_teams_are_none(self, askbob_wrapper):
+    def test_get_team_id_returns_none_if_teams_are_none(self, askbob_wrapper):
         # Given
-        team_name = 'BDA'
+        team_name = None
         # When
         id = askbob_wrapper._get_team_id(team_name=team_name)
         # Then
-        assert id == None"""
+        assert id == None
 
     def test_get_team_people_returns_none_if_team_is_none(self, askbob_wrapper_exception):
         # Given

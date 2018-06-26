@@ -17,7 +17,9 @@ pluggy==0.6.0
 py==1.5.3
 pylint==1.8.4
 pytest==3.5.1
+pytest-mock==1.10.0
 python-dateutil==2.7.2
+rauth==0.7.3
 requests==2.18.4
 s3transfer==0.1.13
 singleton==0.1.0

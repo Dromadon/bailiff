@@ -64,7 +64,7 @@ resource "aws_lambda_function" "bailiff_lambda" {
   filename         = "../../package/package.zip"
   function_name    = "bailiff"
   role             = "${aws_iam_role.iam_role.arn}"
-  handler          = "main.main"
+  handler          = "main.event_handler"
   source_code_hash = "${base64sha256(file("../../package/package.zip"))}"
   runtime          = "python3.6"
 
