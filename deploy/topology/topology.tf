@@ -1,8 +1,14 @@
+# Variables
+variable "SLACK_API_TOKEN" {}
+variable "ASKBOB_ID" {}
+variable "ASKBOB_SECRET" {}
+variable "SLACK_CHANNEL" {}
+variable "ENV" {}
 
 # KMS Part
 
 resource "aws_kms_grant" "kms_grant" {
-  name              = "bailiff-grant"
+  name              = "bailiff-grant-${var.ENV}"
   key_id            = "${data.aws_kms_key.kms_key.id}"
   grantee_principal = "${aws_iam_role.iam_role.arn}"
   operations        = [ "Encrypt", "Decrypt", "DescribeKey", "CreateGrant" ]
@@ -12,7 +18,7 @@ resource "aws_kms_grant" "kms_grant" {
 # IAM Part
 
 resource "aws_iam_role" "iam_role" {
-  name = "bailiff-role"
+  name = "bailiff-role-${var.ENV}"
   force_detach_policies = true
 
   assume_role_policy = <<EOF
@@ -33,7 +39,7 @@ EOF
 }
 
 resource "aws_iam_policy" "read_ec2_policy" {
-  name        = "bailiff_read_ec2"
+  name        = "bailiff_read_ec2_${var.ENV}"
   path        = "/"
   description = "Allows bailiff to read all ec2 objects"
 
@@ -62,16 +68,50 @@ resource "aws_iam_role_policy_attachment" "readec2-attach" {
 
 resource "aws_lambda_function" "bailiff_lambda" {
   filename         = "../../package/package.zip"
-  function_name    = "bailiff"
+  function_name    = "bailiff-${var.ENV}"
   role             = "${aws_iam_role.iam_role.arn}"
   handler          = "main.event_handler"
   source_code_hash = "${base64sha256(file("../../package/package.zip"))}"
   runtime          = "python3.6"
+  timeout          = 20
 
   kms_key_arn      = "${data.aws_kms_key.kms_key.arn}"
   environment {
     variables = {
-      SLACK_API_TOKEN = "test_token"
+      SLACK_API_TOKEN = "${var.SLACK_API_TOKEN}",
+      SLACK_CHANNEL = "${var.SLACK_CHANNEL}",
+      ASKBOB_ID = "${var.ASKBOB_ID}",
+      ASKBOB_SECRET = "${var.ASKBOB_SECRET}"
     }
   }
+}
+
+resource "aws_lambda_permission" "bailiff-cloudwatch" {
+  statement_id   = "Executebailifffromcloudwatch"
+  action         = "lambda:InvokeFunction"
+  function_name  = "${aws_lambda_function.bailiff_lambda.function_name}"
+  principal      = "events.amazonaws.com"
+  source_arn     = "${aws_cloudwatch_event_rule.bailiff-schedule.arn}"
+}
+
+# CloudWatch Part
+
+resource "aws_cloudwatch_event_target" "bailiff" {
+  target_id = "bailiff-${var.ENV}"
+  rule      = "${aws_cloudwatch_event_rule.bailiff-schedule.name}"
+  arn       = "${aws_lambda_function.bailiff_lambda.arn}"
+
+}
+resource "aws_cloudwatch_event_rule" "bailiff-schedule" {
+  name        = "bailiff-schedule-${var.ENV}"
+  description = "Triggers bailiff on a regular basis"
+
+  schedule_expression = "cron(10 10 ? * * *)"
+  event_pattern = <<PATTERN
+{
+  "detail-type": [
+    "Bailiff triggered by cron"
+  ]
+}
+PATTERN
 }
