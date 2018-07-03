@@ -2,8 +2,8 @@
 export AWS_ACCESS_KEY_ID=""
 export AWS_SECRET_ACCESS_KEY=""
 export AWS_DEFAULT_REGION=""
+export AWS_PWD="";
 export ASKBOB_ID=""
 export TF_VAR_ASKBOB_ID=$ASKBOB_ID;
 export ASKBOB_SECRET=""
 export TF_VAR_ASKBOB_SECRET=$ASKBOB_SECRET;
-export AWS_PWD="";

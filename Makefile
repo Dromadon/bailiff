@@ -1,42 +1,27 @@
 SHELL := /bin/bash
 .PHONY: deploy deploy_key package
 deploy: check-env
-	if [ $(ENV) = "prod" ]; then \
-		source config/prod.sh; \
-	else \
-		source config/dev.sh; \
-	fi; \
 	source secrets/secrets.sh; \
 	source secrets/slack.sh; \
-	cd deploy/topology/; \
-	terraform init -backend-config="key=topology-$(ENV)" -backend-config="bucket=bailiff" -backend-config="region=eu-west-1"; \
-	terraform apply -auto-approve;
+	cd deploy/; \
+	./wrapper.sh apply $(ENV) topology
 
 deploy_key: check-env
 	source secrets/secrets.sh; \
-	cd deploy/kms/; \
-	terraform init; \
-	terraform apply -auto-approve;
+	cd deploy/; \
+	./wrapper.sh apply $(ENV) kms
 
 destroy: check-env
-	if [ $(ENV) = "prod" ]; then \
-		source config/prod.sh; \
-	else \
-		source config/dev.sh; \
-	fi; \
 	source secrets/secrets.sh; \
-	source secrets/slack.sh; \
-	cd deploy/topology/; \
-	terraform init -backend-config="key=topology-$(ENV)" -backend-config="bucket=bailiff" -backend-config="region=eu-west-1"; \
-	terraform destroy
+	cd deploy/
+	./wrapper.sh destroy $(ENV) topology
 
 destroy_key: check-env
 	source secrets/secrets.sh; \
-	cd deploy/kms/; \
-	terraform init; \
-	terraform destroy
+	cd deploy/; \
+	./wrapper.sh destroy $(ENV) kms
 
-package: check-env
+package:
 	mkdir -p /tmp/bailiff_package/; \
 	cp -r bailiff/* /tmp/bailiff_package/; \
 	cp -r venv/lib/python3.6/site-packages/* /tmp/bailiff_package/; \

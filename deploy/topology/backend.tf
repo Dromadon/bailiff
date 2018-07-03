@@ -1,9 +1,5 @@
 terraform {
-  backend "s3" {
-    bucket = "bailiff"
-    key    = "topology"
-    region = "eu-west-1"
-  }
+  backend "s3" {}
 }
 
 provider "aws" {
@@ -11,7 +7,7 @@ provider "aws" {
 }
 
 data "aws_kms_key" "kms_key" {
-  key_id = "alias/bailiff_key"
+  key_id = "alias/bailiff_key_${var.ENV}"
 }
 
 

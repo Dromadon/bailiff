@@ -1,7 +1,10 @@
+# Variables
+variable "ENV" {}
+
 #KMS Part
 
 resource "aws_kms_key" "kms_key" {
-  description             = "Bailiff kms key"
+  description             = "Bailiff kms key for ${var.ENV}"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -31,7 +34,7 @@ EOF
 }
 
 resource "aws_kms_alias" "kms_key_alias" {
-  name          = "alias/bailiff_key"
+  name          = "alias/bailiff_key_${var.ENV}"
   target_key_id = "${aws_kms_key.kms_key.key_id}"
 }
 

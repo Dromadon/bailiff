@@ -4,6 +4,7 @@ variable "ASKBOB_ID" {}
 variable "ASKBOB_SECRET" {}
 variable "SLACK_CHANNEL" {}
 variable "ENV" {}
+variable "CRON_EXPRESSION" {}
 
 # KMS Part
 
@@ -106,7 +107,7 @@ resource "aws_cloudwatch_event_rule" "bailiff-schedule" {
   name        = "bailiff-schedule-${var.ENV}"
   description = "Triggers bailiff on a regular basis"
 
-  schedule_expression = "cron(10 10 ? * * *)"
+  schedule_expression = "${var.CRON_EXPRESSION}"
   event_pattern = <<PATTERN
 {
   "detail-type": [

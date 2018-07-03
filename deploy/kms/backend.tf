@@ -1,9 +1,5 @@
 terraform {
-  backend "s3" {
-    bucket = "bailiff"
-    key    = "kms"
-    region = "eu-west-1"
-  }
+  backend "s3" {}
 }
 
 provider "aws" {
