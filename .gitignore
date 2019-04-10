@@ -117,3 +117,6 @@ secrets/*.sh
 
 # Packaging
 package/*
+
+# Idea
+.idea

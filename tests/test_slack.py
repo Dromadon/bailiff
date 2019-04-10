@@ -1,14 +1,15 @@
 
-from bailiff.slack import SlackWrapper
-import requests
 import pytest
+import requests
 import pytest_mock
-from slackclient import SlackClient
+
+from bailiff.slack import SlackWrapper
+
 
 class TestSlack:
 
     @pytest.fixture
-    def slack_wrapper(self, mocker, monkeypatch):
+    def slack_wrapper(self, monkeypatch):
         sw = SlackWrapper("dummy_token", "dummy_channel", "dummy_message")
         return sw
     

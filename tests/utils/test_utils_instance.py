@@ -1,6 +1,5 @@
 import bailiff.utils.instance as bu
 import datetime
-import mock
 
 class TestUtilsInstance:
 
