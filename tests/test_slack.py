@@ -1,4 +1,3 @@
-
 import pytest
 import requests
 import pytest_mock
@@ -12,7 +11,7 @@ class TestSlack:
     def slack_wrapper(self, monkeypatch):
         sw = SlackWrapper("dummy_token", "dummy_channel", "dummy_message")
         return sw
-    
+
     def test_post_to_slack_triggers_api_call(self, slack_wrapper, mocker):
         # Given
         mocker.spy(slack_wrapper.slack_client, 'api_call')
@@ -20,6 +19,7 @@ class TestSlack:
         slack_wrapper.post_to_slack("test")
         # Then
         assert slack_wrapper.slack_client.api_call.call_count == 1
+
 
 def mock_requests(*args, **kwargs):
     if args[0] == 'https://askbob.octo.com/oauth/token':
@@ -30,15 +30,15 @@ def mock_requests(*args, **kwargs):
             {'id': 2, 'code_name': 'SCALE'}
         ]})
     elif args[0] == 'https://askbob.octo.com/api/v2/teams/1/people':
-        return MockResponse({'data':[
+        return MockResponse({'data': [
             {'trigram': 'AGR', 'email': 'agr-test@octo.com'},
             {'trigram': 'ALB', 'email': 'alb-test@octo.com'}
         ]})
 
+
 def mock_requests_exception(*args, **kwargs):
     raise requests.RequestException()
 
-    
 
 class MockResponse:
     def __init__(self, json_data):

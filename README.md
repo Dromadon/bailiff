@@ -45,7 +45,12 @@ I tested what could be tested, so mainly the logic and not the printing stuff. A
 
 ## How to use?
 ### As a dev
-I built this as a script and not a library. I do not plan on making it a library, as I feel it does not have a real meaning. If you want to start from it, `git clone`.
+Please make sure that you use a virtualenv with python3.6+
+To setup the requirements in the venv please use:
+```python setup.py build && python setup.py install```
+
+Then you can install in development mode to make your life easier
+```pip install -e .```
 
 ### As a user
 Everything you need to deploy on your tenant is in the `deploy/` directory. More to come on this topic.

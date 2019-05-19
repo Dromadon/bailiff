@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-.PHONY: deploy deploy_key package
+.PHONY: deploy deploy_key package destroy destroy_key install
 deploy: check-env
 	source secrets/secrets.sh; \
 	source secrets/slack.sh; \
@@ -30,6 +30,10 @@ package:
 	popd; \
 	cp /tmp/bailiff_package/package.zip package/package.zip; \
 	rm -r /tmp/bailiff_package/;
+
+install:
+	python setup.py build && python setup.py install; \
+	pip install -e .[tests];
 
 check-env:
 ifndef ENV

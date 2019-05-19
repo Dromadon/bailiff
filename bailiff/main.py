@@ -1,9 +1,9 @@
 import boto3
 from operator import itemgetter
 import bailiff.instance as bi
-import bailiff.utils.instance as bu
 import bailiff.slack as sl
 import bailiff.utils.printing as bp
+import bailiff.security_group as sg
 import logging
 
 import bailiff.config as cf
@@ -60,9 +60,12 @@ def process_instances():
 
 
 def process_security_groups(regions):
+    security_groups = {}
     for region in regions:
         ec2 = boto3.client('ec2', region_name=region)
-        ec2.describe_security_groups()
+        raw_security_groups = ec2.describe_security_groups()
+        security_groups[region] = sg.security_group_info(raw_security_groups, "access-from-octo")
+    return security_groups
 
 
 def main():
