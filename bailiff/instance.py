@@ -1,7 +1,7 @@
-import utils.instance as utils
+import bailiff.utils.instance as utils
 import datetime
 import logging
-import config
+import bailiff.config
 
 def extract_instance_information(instance):
     information = {}

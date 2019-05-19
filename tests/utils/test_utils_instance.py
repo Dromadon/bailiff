@@ -1,6 +1,7 @@
 import bailiff.utils.instance as bu
 import datetime
 
+
 class TestUtilsInstance:
 
     def test_get_instance_name_from_tags_returns_name_if_exists(self):

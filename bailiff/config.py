@@ -1,7 +1,7 @@
 import logging
 import os
 
-#We're making quite a simple script, so no need for uber-powered logging
+# We're making quite a simple script, so no need for uber-powered logging
 logging.basicConfig(level=logging.INFO)
 
 SLACK_API_TOKEN = os.environ['SLACK_API_TOKEN']
@@ -21,16 +21,18 @@ try:
 except KeyError:
     SLEEPY_THRESHOLD = 15
 
-#This we do not need as a var, but better extracted here than in the middle of the code
+# This we do not need as a var, but better extracted here than in the middle of the code
 categories_headers = {
     'unnamed': {'Id': 'Id', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'},
-    'untrigramed': {'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'},
-    'sleepy': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Region': 'Region'},
-    'legit': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate', 'Stopped': 'Stopped', 'Region': 'Region'}
+    'untrigramed': {'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate',
+                    'Region': 'Region'},
+    'sleepy': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate',
+               'Region': 'Region'},
+    'legit': {'Trigram': 'Trigram', 'Name': 'Name', 'Launch date': 'LaunchDate', 'Last action date': 'LastActionDate',
+              'Stopped': 'Stopped', 'Region': 'Region'}
 }
 
-REGIONS=['eu-west-1','eu-west-2', 'eu-central-1']
-
+REGIONS = ['eu-west-1', 'eu-west-2', 'eu-central-1']
 
 # Askbob part
 

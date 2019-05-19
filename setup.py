@@ -7,4 +7,4 @@ setup(name="bailiff",
                         "tabulate==0.8.2",
                         "requests==2.18.4"],
       packages=find_packages(exclude=("tests*", "secrets", "package", "deploy")),
-      extras_require={"tests": ["pytest", "pytest-mock"]})
+      extras_require={"tests": ["pytest", "pytest-mock", "pytest-env"]})
